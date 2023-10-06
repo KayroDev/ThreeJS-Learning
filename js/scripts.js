@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Clock, Vector3 } from 'three';
+import { Clock, Object3D, Vector3 } from 'three';
 import WebGL from 'three/addons/capabilities/WebGL.js';
 
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -128,8 +128,9 @@ const dogCamera = new THREE.PerspectiveCamera(
     1,
     500 
 );
-dogCamera.position.set(0, 10, 30);
-dogCamera.lookAt(0, 0, 0);
+dogCamera.position.set(0, 4, 10);
+dogCamera.lookAt(0, 2, 0);
+
 
 const dogRenderer = new THREE.WebGLRenderer({antialias: true});
 dogRenderer.setSize(dogConatinerWidth, dogContainerHeight);
@@ -137,7 +138,7 @@ dogRenderer.shadowMap.enabled = true;
 dogContainer.appendChild(dogRenderer.domElement);
 dogRenderer.setClearColor(0xA3A3A3A3);
 
-const dogOrbitControls = new OrbitControls(dogCamera, dogRenderer.domElement); 
+//const dogOrbitControls = new OrbitControls(dogCamera, dogRenderer.domElement); 
 
 
 // grid-helper
@@ -149,15 +150,26 @@ dogScene.add(grid);
 const dogUrl = new URL('/doggo2.glb', import.meta.url);
 
 let mixer;
+let action;
 loader.load(dogUrl.href, function(gltf) {
     const dogModel = gltf.scene;
     dogScene.add(dogModel);
     mixer = new THREE.AnimationMixer(dogModel);
     const clips = gltf.animations;
     const clip = THREE.AnimationClip.findByName(clips, 'HeadAction');
-    const action = mixer.clipAction(clip);
-    action.play();
+    action = mixer.clipAction(clip);
 })
+
+
+// start-stop-animation
+const dogStart = document.getElementById('dog-start');
+dogStart.onclick = function(){
+    action.play();
+};
+const dogStop = document.getElementById('dog-stop');
+dogStop.onclick = function(){
+    action.stop();
+};
 
 
 // RENDER
