@@ -30,7 +30,6 @@ container.appendChild( renderer.domElement );
 
 const controls = new OrbitControls( camera, renderer.domElement ); 
 
-
 // cube
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
@@ -49,7 +48,6 @@ const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 const line = new THREE.Line( lineGeometry, lineMaterial );
 scene.add(line);
 
-
 // GLTF loader
 const loader = new GLTFLoader();
 
@@ -65,12 +63,9 @@ loader.load( '/monky.glb', function ( gltf ) {
     })
     gltf.scene.position.set(0,2,0);
 
-}, undefined, function ( error ) {
-
+}, undefined, function (error) {
 	console.error( error );
-
 } );
-
 
 // test cube
 const testCGet = new THREE.BoxGeometry(1,1,1);
@@ -80,7 +75,6 @@ const testcMat = new THREE.MeshStandardMaterial({
 const testC = new THREE.Mesh(testCGet,testcMat);
 scene.add(testC);
 testC.castShadow = true;
-
 
 // directional light
 const dLight = new THREE.DirectionalLight(0xffffff , 1);
@@ -101,8 +95,7 @@ const planeMat = new THREE.MeshStandardMaterial({color: 0x0000FF});
 const plane = new THREE.Mesh( planeGeo, planeMat );
 plane.receiveShadow = true;
 scene.add(plane);
-plane.rotateX(Math.PI/180 * -90);
-
+plane.rotateX((Math.PI / 180) * -90);
 
 // Render / Animate
 function animate() {
@@ -113,15 +106,10 @@ function animate() {
 	renderer.render( scene, camera );
 }
 
-
 // WebGL compatibility check
-if ( WebGL.isWebGLAvailable() ) {
-
+if (WebGL.isWebGLAvailable()) {
 	animate();
-
 } else {
-
 	const warning = WebGL.getWebGLErrorMessage();
-	document.getElementById( 'container' ).appendChild( warning );
-
+	document.getElementById('container').appendChild(warning);
 }
