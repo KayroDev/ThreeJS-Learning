@@ -1,0 +1,26 @@
+
+body {margin: 0;}
+
+#titleBox {
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+#column {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+}
+
+#canvas {
+    height: 300px;
+    width: 40vw;
+    background-color: aqua;
+}
